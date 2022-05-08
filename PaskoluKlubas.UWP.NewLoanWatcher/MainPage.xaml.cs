@@ -20,6 +20,7 @@ using System.Text;
 using Windows.UI.Notifications;
 using Windows.Media.Protection.PlayReady;
 using Microsoft.Extensions.DependencyInjection;
+using PaskoluKlubas.UWP.NewLoanWatcher.LoanIssuerClients.PaskoluKlubas;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -45,28 +46,27 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
         {
             var services = new ServiceCollection();
 
-            services.AddTransient<ILoanIssuer, PaskoluKlubasLoanIssuer>();
-            services.AddTransient<ILoanIssuer, FinbeeLoanIssuer>();
-            services.AddTransient<NewLoanMonitorFactory>();
-
             return services.BuildServiceProvider();
-
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             watcher_start.IsEnabled = false;
 
-            var factory = _serviceProvider.GetRequiredService<NewLoanMonitorFactory>();
-            var monitor = factory.Create(new[]
+            //creds check
+            var isOk = await PKLoanIssuerClient
+                .WithCredentials(login.Text, password.Password)
+                .IsAbleToLoginAsync();
+
+            var monitor = LoanListMonitorFactory.Create(new[]
             {
-                new LoanIssuerLoginSettings
+                new LoanIssuerClientConfiguration
                 {
                     LoanIssuer = LoanIssuer.PaskoluKlubas,
                     Login = login.Text,
                     Password = password.Password
                 },
-                new LoanIssuerLoginSettings
+                new LoanIssuerClientConfiguration
                 {
                      LoanIssuer = LoanIssuer.Finbee,
                      Login = "",
@@ -74,8 +74,8 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
                 }
             });
 
-            var results = await monitor.GetIssuedNewLoansAsync();
-            var results2 = await monitor.GetIssuedNewLoansAsync();
+            var results = await monitor.GetNewLoansAsync();
+            var results2 = await monitor.GetNewLoansAsync();
 
 
             var i = 0;

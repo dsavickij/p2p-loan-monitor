@@ -1,6 +1,6 @@
 ﻿namespace PaskoluKlubas.UWP.NewLoanWatcher
 {
-    public class LoanIssuerLoginSettings
+    public class LoanIssuerClientConfiguration
     {
         public LoanIssuer LoanIssuer { get; set; }
 
