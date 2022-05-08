@@ -119,16 +119,19 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LoanIssuers\FinbeeLoanIssuer.cs" />
     <Compile Include="Enums\LoanIssuer.cs" />
+   <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerClient.cs" />
+      <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerLoginCheck.cs" />
+	        <Compile Include="LoanIssuerClients\PaskoluKlubas\PKLoanIssuerClient.cs" />
+			      <Compile Include="LoanIssuerClients\PaskoluKlubas\PKLoanIssuerClient.LoginCheck.cs" />
+			      <Compile Include="LoanIssuerClients\Finbee\FinbeeLoanIssuerClient.cs" />
     <Compile Include="Loan.cs" />
-    <Compile Include="LoanIssuerLoginSettings.cs" />
+	    <Compile Include="LoanListMonitor.cs" />
+		    <Compile Include="LoanIssuerClientConfiguration.cs" />
+	      <Compile Include="LoanListMonitorFactory.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NewLoanMonitor.cs" />
-    <Compile Include="NewLoanMonitorFactory.cs" />
-    <Compile Include="LoanIssuers\PaskoluKlubasLoanIssuer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
