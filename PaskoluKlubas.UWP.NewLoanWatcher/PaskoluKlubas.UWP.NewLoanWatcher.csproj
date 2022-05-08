@@ -120,19 +120,21 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Enums\LoanIssuer.cs" />
-   <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerClient.cs" />
-      <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerLoginCheck.cs" />
-	        <Compile Include="LoanIssuerClients\PaskoluKlubas\PKLoanIssuerClient.cs" />
-			      <Compile Include="LoanIssuerClients\PaskoluKlubas\PKLoanIssuerClient.LoginCheck.cs" />
-			      <Compile Include="LoanIssuerClients\Finbee\FinbeeLoanIssuerClient.cs" />
+    <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerClient.cs" />
+    <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerLoginCheck.cs" />
+    <Compile Include="LoanIssuerClients\PaskoluKlubas\PKLoanIssuerClient.cs" />
+    <Compile Include="LoanIssuerClients\PaskoluKlubas\PKLoanIssuerClient.LoginCheck.cs" />
+    <Compile Include="LoanIssuerClients\Finbee\FinbeeLoanIssuerClient.cs" />
     <Compile Include="Loan.cs" />
-	    <Compile Include="LoanListMonitor.cs" />
-		    <Compile Include="LoanIssuerClientConfiguration.cs" />
-	      <Compile Include="LoanListMonitorFactory.cs" />
+    <Compile Include="LoanListMonitor.cs" />
+    <Compile Include="LoanIssuerClientConfiguration.cs" />
+    <Compile Include="LoanListMonitorFactory.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PeriodicLoanChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToastMessenger.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
