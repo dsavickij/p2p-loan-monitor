@@ -4,7 +4,7 @@ using PaskoluKlubas.UWP.NewLoanWatcher;
 
 public interface ILoanIssuerClient
 {
-    LoanIssuer Name { get; }
+    LoanIssuer Issuer { get; }
 
     Task<IEnumerable<Loan>> GetLoanListingAsync();
 }

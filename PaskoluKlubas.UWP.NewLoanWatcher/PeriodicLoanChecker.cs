@@ -11,12 +11,12 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
     {
         private readonly LoanListMonitor _monitor;
         private readonly TimeSpan _timeSpan;
-        private readonly Action<IDictionary<LoanIssuer, IEnumerable<Loan>>> _handler;
-
+        private readonly Action<LoanListing> _handler;
+        
         private PeriodicLoanCheckerBuilder(
             LoanListMonitor monitor,
             TimeSpan timeSpan,
-            Action<IDictionary<LoanIssuer, IEnumerable<Loan>>> handler) : this(monitor, timeSpan)
+            Action<LoanListing> handler) : this(monitor, timeSpan)
         {
             _handler = handler;
         }
@@ -30,11 +30,11 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
         {
             _monitor = monitor;
         }
-
-        public static IPeriodicLoanCheckerBuilderTimespanSetup SetLoanIssuers(IEnumerable<LoanIssuerClientConfiguration> clientCfgs)
+        
+        public static IPeriodicLoanCheckerBuilderTimespanSetup SetLoanIssuer(LoanIssuerClientConfiguration cfg)
         {
-            var monitor = LoanListMonitorFactory.Create(clientCfgs);
-
+            var monitor = LoanListMonitorFactory.Create(cfg);
+            
             return new PeriodicLoanCheckerBuilder(monitor);
         }
 
@@ -48,7 +48,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
             return new PeriodicLoanChecker(_monitor, _timeSpan, _handler);
         }
 
-        public IPeriodicLoanCheckerBuilder CallOnNewLoans(Action<IDictionary<LoanIssuer, IEnumerable<Loan>>> handler)
+        public IPeriodicLoanCheckerBuilder CallOnNewLoans(Action<LoanListing> handler)
         {
             return new PeriodicLoanCheckerBuilder(_monitor, _timeSpan, handler);
         }
@@ -58,14 +58,14 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
     {
         private readonly LoanListMonitor _monitor;
         private readonly TimeSpan _timeSpan;
-        private readonly Action<IDictionary<LoanIssuer, IEnumerable<Loan>>> _handler;
+        private readonly Action<LoanListing> _handler;
 
         private bool _keepChecking;
 
         public PeriodicLoanChecker(
             LoanListMonitor monitor,
             TimeSpan timeSpan,
-            Action<IDictionary<LoanIssuer, IEnumerable<Loan>>> handler)
+            Action<LoanListing> handler)
         {
             _monitor = monitor;
             _timeSpan = timeSpan;
@@ -80,11 +80,11 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
             {                
                 while (_keepChecking)
                 {
-                    var loans = await _monitor.GetNewLoansAsync();
+                    var listing = await _monitor.GetNewLoanListingAsync();
 
-                    if (loans.Any())
+                    if (listing.Loans.Any())
                     {
-                        _handler.Invoke(loans);
+                        _handler.Invoke(listing);
                     }
 
                     await Task.Delay(_timeSpan);
@@ -148,6 +148,6 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
 
     public interface IPeriodicLoanCheckerBuilderHandlerSetup
     {
-        IPeriodicLoanCheckerBuilder CallOnNewLoans(Action<IDictionary<LoanIssuer, IEnumerable<Loan>>> handler);
+        IPeriodicLoanCheckerBuilder CallOnNewLoans(Action<LoanListing> handler);
     }
 }

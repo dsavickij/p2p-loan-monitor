@@ -11,7 +11,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
         private readonly string _login;
         private readonly string _password;
 
-        public LoanIssuer Name => LoanIssuer.Finbee;
+        public LoanIssuer Issuer => LoanIssuer.Finbee;
 
         public FinbeeLoanIssuerClient(string login, string password)
         {

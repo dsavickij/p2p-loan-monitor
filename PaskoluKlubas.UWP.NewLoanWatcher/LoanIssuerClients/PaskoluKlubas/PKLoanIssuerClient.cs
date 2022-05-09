@@ -13,7 +13,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher.LoanIssuerClients.PaskoluKlubas
         private readonly string _login;
         private readonly string _password;
 
-        public LoanIssuer Name => LoanIssuer.PaskoluKlubas;
+        public LoanIssuer Issuer => LoanIssuer.PaskoluKlubas;
 
         public PKLoanIssuerClient(string login, string password)
         {

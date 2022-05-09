@@ -42,32 +42,32 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
         {
             watcher_start.IsEnabled = false;
 
-            var toastMessenger = new ToastMessenger();
+            var toastMessenger = new PaskoluKlubasToastMessageRenderer();
 
-
-
-            var issuerCfgs = new[]
+            toastMessenger.ShowToastMessage(new LoanListing
             {
-                new LoanIssuerClientConfiguration
+                Issuer = LoanIssuer.PaskoluKlubas,
+                Loans = new[]
                 {
-                    LoanIssuer = LoanIssuer.PaskoluKlubas,
-                    Login = login.Text,
-                    Password = password.Password
-                },
-                new LoanIssuerClientConfiguration
-                {
-                     LoanIssuer = LoanIssuer.Finbee,
-                     Login = "",
-                     Password = ""
+                    new Loan { Amount = 5, CreditRating = "B", Duration = 55, Id = "dsds", InterestRate = 5 },
+                    new Loan { Amount = 10, CreditRating = "A", Duration = 45, Id = "dsdsaa", InterestRate = 51 },
+                    new Loan { Amount = 10, CreditRating = "C", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
                 }
+            });
+
+            var issuerCfg = new LoanIssuerClientConfiguration
+            {
+                LoanIssuer = LoanIssuer.PaskoluKlubas,
+                Login = login.Text,
+                Password = password.Password
             };
 
-            _loanChecker = PeriodicLoanCheckerBuilder
-                .SetLoanIssuers(issuerCfgs)
-                .CheckEvery(TimeSpan.FromMinutes(3))
-                .CallOnNewLoans(toastMessenger.ShowToastMessages)
-                .Build();
 
+            _loanChecker = PeriodicLoanCheckerBuilder
+                .SetLoanIssuer(issuerCfg)
+                .CheckEvery(TimeSpan.FromMinutes(3))
+                .CallOnNewLoans(toastMessenger.ShowToastMessage)
+                .Build();
 
             try
             {
@@ -75,7 +75,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
             }
             catch (Exception ex)
             {
-              
+
                 throw;
             }
 

@@ -6,40 +6,30 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
 {
     public class LoanListMonitor
     {
-        private readonly IEnumerable<ILoanIssuerClient> _loanIssuers;
+        private readonly ILoanIssuerClient _loanIssuerClient;
 
-        private Dictionary<LoanIssuer, IEnumerable<Loan>> _currentLoanListings = new Dictionary<LoanIssuer, IEnumerable<Loan>>();
+        private LoanListing _currentLoanListing = new LoanListing();
 
-        public LoanListMonitor(IEnumerable<ILoanIssuerClient> loanIssuers)
+        public LoanListMonitor(ILoanIssuerClient loanIssuer)
         {
-            _loanIssuers = loanIssuers;
+            _loanIssuerClient = loanIssuer;
         }
 
-        public  async Task<IDictionary<LoanIssuer, IEnumerable<Loan>>> GetNewLoansAsync()
+        public async Task<LoanListing> GetNewLoanListingAsync()
         {
-            var newLoans = new Dictionary<LoanIssuer, IEnumerable<Loan>>();
+            var newloanListing = new LoanListing { Issuer = _loanIssuerClient.Issuer, Loans = Enumerable.Empty<Loan>() };
             
-            foreach (var loanIssuer in _loanIssuers)
+            var loanListing = await _loanIssuerClient.GetLoanListingAsync();
+
+            if (_currentLoanListing.Loans != null)
             {
-                var newLoanListing = await loanIssuer.GetLoanListingAsync();
-
-                if (_currentLoanListings.ContainsKey(loanIssuer.Name))
-                {
-                    var delta = newLoanListing.Where(x => !_currentLoanListings[loanIssuer.Name].Contains(x));
-
-                    if (delta.Any())
-                    {
-                        newLoans[loanIssuer.Name] = delta;
-                    }
-
-                    _currentLoanListings[loanIssuer.Name] = newLoanListing;
-                    continue;
-                }
-
-                _currentLoanListings.Add(loanIssuer.Name, newLoanListing);
+                var delta = loanListing.Where(x => !_currentLoanListing.Loans.Contains(x));
+                newloanListing.Loans = delta;
             }
 
-            return newLoans;
+            _currentLoanListing.Loans = loanListing;
+
+            return newloanListing;
         }
     }
 }
