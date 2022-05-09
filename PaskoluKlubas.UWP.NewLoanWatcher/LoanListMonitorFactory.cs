@@ -15,7 +15,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
             switch (cfg.LoanIssuer)
             {
                 case LoanIssuer.PaskoluKlubas:
-                    client = new PKLoanIssuerClient(cfg.Login, cfg.Password);
+                    client = new PaskoluKlubasLoanIssuerClient(cfg.Login, cfg.Password);
                     break;
                 case LoanIssuer.Finbee:
                     client = new FinbeeLoanIssuerClient(cfg.Login, cfg.Password);

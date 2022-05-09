@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace PaskoluKlubas.UWP.NewLoanWatcher.LoanIssuerClients.PaskoluKlubas
 {
-    public partial class PKLoanIssuerClient : ILoanIssuerLoginCheck
+    public partial class PaskoluKlubasLoanIssuerClient : ILoanIssuerLoginCheck
     {
         public static ILoanIssuerLoginCheck WithCredentials(string login, string password)
         {
-            return new PKLoanIssuerClient(login, password);
+            return new PaskoluKlubasLoanIssuerClient(login, password);
         }
 
         public async Task<bool> IsAbleToLoginAsync()

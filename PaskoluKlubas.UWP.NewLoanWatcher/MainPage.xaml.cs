@@ -50,8 +50,13 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
                 Loans = new[]
                 {
                     new Loan { Amount = 5, CreditRating = "B", Duration = 55, Id = "dsds", InterestRate = 5 },
-                    new Loan { Amount = 10, CreditRating = "A", Duration = 45, Id = "dsdsaa", InterestRate = 51 },
+                    new Loan { Amount = 10, CreditRating = "A+", Duration = 45, Id = "dsdsaa", InterestRate = 51 },
+                    new Loan { Amount = 10, CreditRating = "A+", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
                     new Loan { Amount = 10, CreditRating = "C", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
+                    new Loan { Amount = 10, CreditRating = "C", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
+                    new Loan { Amount = 10, CreditRating = "A", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
+                    new Loan { Amount = 10, CreditRating = "D", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
+
                 }
             });
 
@@ -65,7 +70,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
 
             _loanChecker = PeriodicLoanCheckerBuilder
                 .SetLoanIssuer(issuerCfg)
-                .CheckEvery(TimeSpan.FromMinutes(3))
+                .CheckEvery(TimeSpan.FromMinutes(1))
                 .CallOnNewLoans(toastMessenger.ShowToastMessage)
                 .Build();
 

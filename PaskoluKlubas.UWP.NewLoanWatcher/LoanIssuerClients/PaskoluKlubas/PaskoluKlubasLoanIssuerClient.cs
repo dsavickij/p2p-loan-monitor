@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace PaskoluKlubas.UWP.NewLoanWatcher.LoanIssuerClients.PaskoluKlubas
 {
-    public partial class PKLoanIssuerClient : ILoanIssuerClient
+    public partial class PaskoluKlubasLoanIssuerClient : ILoanIssuerClient
     {
         private readonly string _login;
         private readonly string _password;
 
         public LoanIssuer Issuer => LoanIssuer.PaskoluKlubas;
 
-        public PKLoanIssuerClient(string login, string password)
+        public PaskoluKlubasLoanIssuerClient(string login, string password)
         {
             _login = login;
             _password = password;
