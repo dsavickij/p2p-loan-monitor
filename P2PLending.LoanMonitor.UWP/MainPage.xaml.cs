@@ -45,14 +45,12 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
         {
             LoginBox.IsEnabled = true;
             PasswordBox.IsEnabled = true;
-            //ConnectButton.IsEnabled = true;
+            StartMonitoring.IsEnabled = true;
 
             StartMonitoring.Visibility = Visibility.Visible;
             StopMonitoring.Visibility = Visibility.Collapsed;
-
-            //DisconnectButton.Visibility = Visibility.Collapsed;
-            //ConnectButton.Visibility = Visibility.Visible;
-
+            MonitoringProgressBar.Visibility = Visibility.Collapsed;
+            
             _loanChecker?.Stop();
         }
 

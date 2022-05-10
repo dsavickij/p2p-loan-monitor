@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}" d:DesignWidth="392" d:DesignHeight="332">
 
 
     <Grid>
@@ -25,7 +25,7 @@
         <PasswordBox x:Name="PasswordBox"  Header="Password" VerticalAlignment="Top" AutomationProperties.HelpText="Enter your password" InputScope="Password" PlaceholderText="Enter your password" Height="55"  AutomationProperties.IsRequiredForForm="True" Margin="42,122,42,0" PasswordChanged="PasswordBox_PasswordChanged"/>
         <TextBox x:Name="LoginBox"  Header="Login" Margin="42,51,42,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="55" PlaceholderText="Enter your login" AutomationProperties.IsRequiredForForm="True" AutomationProperties.Name="login" TextChanged="LoginBox_TextChanged" IsSpellCheckEnabled="False"/>
 
-        <ProgressBar x:Name="MonitoringProgressBar" Width="130" IsIndeterminate="True" ShowPaused="False" ShowError="False" Visibility="Collapsed" />
+        <ProgressBar x:Name="MonitoringProgressBar" Width="130" IsIndeterminate="True" ShowPaused="False" ShowError="False" Visibility="Collapsed" Margin="0,290,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" />
         <TextBlock x:Name="LoginFailedTextBlock" Margin="42,193,42,0" TextWrapping="Wrap" Text="Incorrect credentials" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" Foreground="#FFDC1010"/>
 
     </Grid>
