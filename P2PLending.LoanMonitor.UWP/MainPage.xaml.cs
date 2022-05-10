@@ -76,7 +76,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
 
             _loanChecker = PeriodicLoanCheckerBuilder
                 .SetLoanIssuer(issuerCfg)
-                .CheckEvery(TimeSpan.FromMinutes(1))
+                .CheckEvery(TimeSpan.FromSeconds(20))
                 .CallOnNewLoans(toastMessenger.ShowToastMessage)
                 .Build();
 

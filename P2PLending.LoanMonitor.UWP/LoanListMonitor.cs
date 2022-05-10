@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,12 +19,12 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
         public async Task<LoanListing> GetNewLoanListingAsync()
         {
             var newloanListing = new LoanListing { Issuer = _loanIssuerClient.Issuer, Loans = Enumerable.Empty<Loan>() };
-            
+
             var loanListing = await _loanIssuerClient.GetLoanListingAsync();
 
             if (_currentLoanListing.Loans != null)
             {
-                var delta = loanListing.Where(x => !_currentLoanListing.Loans.Contains(x));
+                var delta = loanListing.Where(x => !_currentLoanListing.Loans.Contains(x)).ToList();
                 newloanListing.Loans = delta;
             }
 
