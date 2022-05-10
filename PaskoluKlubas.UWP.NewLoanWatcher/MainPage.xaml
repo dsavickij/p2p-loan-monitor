@@ -6,12 +6,27 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="250" Width="250">
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}">
 
-    <Grid Margin="0,0,-131,-63">
-        <Button x:Name="watcher_start" Content="Button" Margin="0,263,0,0" Height="31" Width="213" Click="Button_Click" VerticalAlignment="Top" HorizontalAlignment="Center" IsEnabled="False"/>
-        <PasswordBox x:Name="password" HorizontalAlignment="Center" VerticalAlignment="Top" AutomationProperties.HelpText="enter password" InputScope="Password" PlaceholderText="password" Height="30" Width="213"  AutomationProperties.IsRequiredForForm="True" KeyUp="password_KeyUp" Margin="0,109,0,0"/>
-        <TextBox x:Name="login" HorizontalAlignment="Center" Margin="0,50,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="30" Width="213" PlaceholderText="login" AutomationProperties.IsRequiredForForm="True" AutomationProperties.Name="login" KeyUp="login_KeyUp"/>
-        <Button x:Name="Login" Content="Button" Margin="0,157,0,0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="213" Click="Login_Click"/>
+
+    <Grid>
+        <NavigationView x:Name="navigationPanel" PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Icon="Play" Content="Paskolu klubas" Tag="SamplePage1" />
+                <NavigationViewItem Icon="Save" Content="Finbee" Tag="SamplePage2" />
+                <NavigationViewItem Icon="Refresh" Content="Savy" Tag="SamplePage3" />
+                <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
+            </NavigationView.MenuItems>
+        </NavigationView>
+
+
+        <Button x:Name="StartMonitoring" Content="Start monitoring" Margin="42,224,42,0" Click="StartMonitoring_Click" VerticalAlignment="Top" IsEnabled="False" Height="35" HorizontalAlignment="Stretch"/>
+        <Button x:Name="StopMonitoring" Content="Stop monitoring" Margin="42,224,42,0" Click="StopMonitoring_Click" VerticalAlignment="Top" IsEnabled="False" Height="35" HorizontalAlignment="Stretch" Visibility="Collapsed"/>
+        <PasswordBox x:Name="PasswordBox"  Header="Password" VerticalAlignment="Top" AutomationProperties.HelpText="Enter your password" InputScope="Password" PlaceholderText="Enter your password" Height="55"  AutomationProperties.IsRequiredForForm="True" Margin="42,122,42,0" PasswordChanged="PasswordBox_PasswordChanged"/>
+        <TextBox x:Name="LoginBox"  Header="Login" Margin="42,51,42,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Height="55" PlaceholderText="Enter your login" AutomationProperties.IsRequiredForForm="True" AutomationProperties.Name="login" TextChanged="LoginBox_TextChanged" IsSpellCheckEnabled="False"/>
+
+        <ProgressBar x:Name="MonitoringProgressBar" Width="130" IsIndeterminate="True" ShowPaused="False" ShowError="False" Visibility="Collapsed" />
+        <TextBlock x:Name="LoginFailedTextBlock" Margin="42,193,42,0" TextWrapping="Wrap" Text="Incorrect credentials" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" Foreground="#FFDC1010"/>
+
     </Grid>
 </Page>

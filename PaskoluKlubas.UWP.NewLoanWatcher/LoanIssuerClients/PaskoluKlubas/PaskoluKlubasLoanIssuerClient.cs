@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Net;
 using System.Threading.Tasks;
+using PaskoluKlubas.UWP.NewLoanWatcher.Exceptions;
 
 namespace PaskoluKlubas.UWP.NewLoanWatcher.LoanIssuerClients.PaskoluKlubas
 {
@@ -37,7 +38,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher.LoanIssuerClients.PaskoluKlubas
                     return ParseLoans(loanDoc);
                 }
 
-                throw new Exception("");
+                throw new LoginFailedException();
             }
         }
 

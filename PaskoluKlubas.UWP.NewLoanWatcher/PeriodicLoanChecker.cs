@@ -72,30 +72,21 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
             _handler = handler;
         }
 
-        public void Start()
+        public async Task StartAsync()
         {
             _keepChecking = true;
 
-            Task.Run(async () =>
-            {                
-                while (_keepChecking)
-                {
-                    var listing = await _monitor.GetNewLoanListingAsync();
-
-                    if (listing.Loans.Any())
-                    {
-                        _handler.Invoke(listing);
-                    }
-
-                    await Task.Delay(_timeSpan);
-                }
-            }).ContinueWith(x =>
+            while (_keepChecking)
             {
-                if (x.IsFaulted)
+                var listing = await _monitor.GetNewLoanListingAsync();
+
+                if (listing.Loans.Any())
                 {
-                    throw x.Exception;
+                    _handler.Invoke(listing);
                 }
-            });
+
+                await Task.Delay(_timeSpan);
+            };
         }
 
         public void Stop()

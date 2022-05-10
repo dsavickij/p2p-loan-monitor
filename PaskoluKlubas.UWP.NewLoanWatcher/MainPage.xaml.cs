@@ -7,6 +7,9 @@ using Windows.UI.Xaml.Input;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using PaskoluKlubas.UWP.NewLoanWatcher.LoanIssuerClients.PaskoluKlubas;
+using System.Threading.Tasks;
+using MUXC = Microsoft.UI.Xaml.Controls;
+using PaskoluKlubas.UWP.NewLoanWatcher.Exceptions;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -38,35 +41,40 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
             return services.BuildServiceProvider();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private void StopMonitoring_Click(object sender, RoutedEventArgs e)
         {
-            watcher_start.IsEnabled = false;
+            LoginBox.IsEnabled = true;
+            PasswordBox.IsEnabled = true;
+            //ConnectButton.IsEnabled = true;
+
+            StartMonitoring.Visibility = Visibility.Visible;
+            StopMonitoring.Visibility = Visibility.Collapsed;
+
+            //DisconnectButton.Visibility = Visibility.Collapsed;
+            //ConnectButton.Visibility = Visibility.Visible;
+
+            _loanChecker?.Stop();
+        }
+
+        private async void StartMonitoring_Click(object sender, RoutedEventArgs e)
+        {
+            LoginBox.IsEnabled = false;
+            PasswordBox.IsEnabled = false;
+            StartMonitoring.IsEnabled = false;
+            //DisconnectButton.IsEnabled = false;
+            //StopMonitoring.IsEnabled = true;
+
+            //StartMonitoring.Visibility = Visibility.Collapsed;
+            //StopMonitoring.Visibility = Visibility.Visible;
 
             var toastMessenger = new PaskoluKlubasToastMessageRenderer();
-
-            toastMessenger.ShowToastMessage(new LoanListing
-            {
-                Issuer = LoanIssuer.PaskoluKlubas,
-                Loans = new[]
-                {
-                    new Loan { Amount = 5, CreditRating = "B", Duration = 55, Id = "dsds", InterestRate = 5 },
-                    new Loan { Amount = 10, CreditRating = "A+", Duration = 45, Id = "dsdsaa", InterestRate = 51 },
-                    new Loan { Amount = 10, CreditRating = "A+", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
-                    new Loan { Amount = 10, CreditRating = "C", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
-                    new Loan { Amount = 10, CreditRating = "C", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
-                    new Loan { Amount = 10, CreditRating = "A", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
-                    new Loan { Amount = 10, CreditRating = "D", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
-
-                }
-            });
 
             var issuerCfg = new LoanIssuerClientConfiguration
             {
                 LoanIssuer = LoanIssuer.PaskoluKlubas,
-                Login = login.Text,
-                Password = password.Password
+                Login = LoginBox.Text,
+                Password = PasswordBox.Password
             };
-
 
             _loanChecker = PeriodicLoanCheckerBuilder
                 .SetLoanIssuer(issuerCfg)
@@ -76,13 +84,67 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
 
             try
             {
-                _loanChecker.Start();
-            }
-            catch (Exception ex)
-            {
+                StartMonitoring.Visibility = Visibility.Collapsed;
+                StopMonitoring.Visibility = Visibility.Visible;
+                MonitoringProgressBar.Visibility = Visibility.Visible;
+                LoginFailedTextBlock.Visibility = Visibility.Collapsed;
 
-                throw;
+                StopMonitoring.IsEnabled = true;
+          
+                await _loanChecker.StartAsync();
             }
+            catch (LoginFailedException ex)
+            {
+                LoginBox.IsEnabled = true;
+                PasswordBox.IsEnabled = true;
+                StartMonitoring.IsEnabled = true;
+
+                LoginFailedTextBlock.Visibility = Visibility.Visible;
+                StartMonitoring.Visibility = Visibility.Visible;
+                StopMonitoring.Visibility = Visibility.Collapsed;
+                MonitoringProgressBar.Visibility = Visibility.Collapsed;
+
+            }
+
+            //toastMessenger.ShowToastMessage(new LoanListing
+            //{
+            //    Issuer = LoanIssuer.PaskoluKlubas,
+            //    Loans = new[]
+            //    {
+            //        new Loan { Amount = 5, CreditRating = "B", Duration = 55, Id = "dsds", InterestRate = 5 },
+            //        new Loan { Amount = 10, CreditRating = "A+", Duration = 45, Id = "dsdsaa", InterestRate = 51 },
+            //        new Loan { Amount = 10, CreditRating = "A+", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
+            //        new Loan { Amount = 10, CreditRating = "C", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
+            //        new Loan { Amount = 10, CreditRating = "C", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
+            //        new Loan { Amount = 10, CreditRating = "A", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
+            //        new Loan { Amount = 10, CreditRating = "D", Duration = 65, Id = "dsdsggaa", InterestRate = 15 },
+
+            //    }
+            //});
+
+            //var issuerCfg = new LoanIssuerClientConfiguration
+            //{
+            //    LoanIssuer = LoanIssuer.PaskoluKlubas,
+            //    Login = LoginBox.Text,
+            //    Password = PasswordBox.Password
+            //};
+
+
+            //_loanChecker = PeriodicLoanCheckerBuilder
+            //    .SetLoanIssuer(issuerCfg)
+            //    .CheckEvery(TimeSpan.FromMinutes(1))
+            //    .CallOnNewLoans(toastMessenger.ShowToastMessage)
+            //    .Build();
+
+            //try
+            //{
+            //    _loanChecker.Start();
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    throw;
+            //}
 
 
             // _loanChecker.Stop();
@@ -253,51 +315,72 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
             ////.AddText($"A    5", AdaptiveTextStyle.Body)
             ////.AddText($"A+   5", AdaptiveTextStyle.Body);
 
-
-
-
-
-
             //toast.Show();
-
-
         }
 
-        private string GetToastMessageText(IEnumerable<Loan> loans)
+        //private void DisconnectButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    LoginBox.IsEnabled = true;
+        //    PasswordBox.IsEnabled = true;
+        //    StartMonitoring.IsEnabled = false;
+
+        //    ConnectButton.Visibility = Visibility.Visible;
+        //    DisconnectButton.Visibility = Visibility.Collapsed;
+        //}
+
+        //private async void ConnectButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    LoginBox.IsEnabled = false;
+        //    PasswordBox.IsEnabled = false;
+        //    ConnectButton.IsEnabled = false;
+
+        //    var isLoginSuccessful = await PaskoluKlubasLoanIssuerClient
+        //        .WithCredentials(LoginBox.Text, PasswordBox.Password)
+        //        .IsAbleToLoginAsync();
+
+        //    if (isLoginSuccessful)
+        //    {
+        //        StartMonitoring.IsEnabled = true;
+        //        ConnectButton.IsEnabled = true;
+        //        DisconnectButton.IsEnabled = true;
+
+        //        ConnectButton.Visibility = Visibility.Collapsed;
+        //        DisconnectButton.Visibility = Visibility.Visible;
+        //    }
+        //    else
+        //    {
+        //        LoginBox.IsEnabled = true;
+        //        PasswordBox.IsEnabled = true;
+        //        ConnectButton.IsEnabled = true;
+        //    }
+        //}
+
+        private void LoginBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var loanGroups = loans.GroupBy(x => x.CreditRating).OrderBy(x => x.Key);
-
-            var sb = new StringBuilder();
-
-            foreach (var loanGroup in loanGroups)
+            if (LoginBox.Text.Length != 0 && PasswordBox.Password.Length != 0)
             {
-                sb.AppendLine($"{loanGroup.Key,-20} | {loanGroup.Count()}");
+                StartMonitoring.IsEnabled = true;
+            }
+            else
+            {
+                StartMonitoring.IsEnabled = false;
             }
 
-            return sb.ToString();
+            LoginFailedTextBlock.Visibility = Visibility.Collapsed;
         }
 
-        private void login_KeyUp(object sender, KeyRoutedEventArgs e)
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (login.Text.Length != 0 && password.Password.Length != 0)
+            if (LoginBox.Text.Length != 0 && PasswordBox.Password.Length != 0)
             {
-                watcher_start.IsEnabled = true;
+                StartMonitoring.IsEnabled = true;
+            }
+            else
+            {
+                StartMonitoring.IsEnabled = false;
             }
 
-        }
-
-        private void password_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
-            if (login.Text.Length != 0 && password.Password.Length != 0)
-            {
-                watcher_start.IsEnabled = true;
-            }
-        }
-
-        private void Login_Click(object sender, RoutedEventArgs e)
-        {
-
+            LoginFailedTextBlock.Visibility = Visibility.Collapsed;
         }
     }
-
 }
