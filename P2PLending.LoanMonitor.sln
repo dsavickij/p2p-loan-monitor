@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32427.441
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaskoluKlubas.UWP.NewLoanWatcher", "PaskoluKlubas.UWP.NewLoanWatcher\PaskoluKlubas.UWP.NewLoanWatcher.csproj", "{AC980C15-D349-4B26-AB4C-31955D308B9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2PLending.LoanMonitor.UWP", "P2PLending.LoanMonitor.UWP\P2PLending.LoanMonitor.UWP.csproj", "{AC980C15-D349-4B26-AB4C-31955D308B9D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

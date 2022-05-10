@@ -130,6 +130,7 @@
     </Compile>
     <Compile Include="Enums\LoanIssuer.cs" />
     <Compile Include="Exceptions\LoginFailedException.cs" />
+    <Compile Include="PeriodicLoanCheckerBuilder.cs" />
     <Compile Include="ToastMessage\Abstractions\IToastMessageRenderer.cs" />
     <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerClient.cs" />
     <Compile Include="LoanIssuerClients\PaskoluKlubas\PaskoluKlubasLoanIssuerClient.cs" />
