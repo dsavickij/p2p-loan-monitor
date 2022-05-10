@@ -13,9 +13,9 @@
         <NavigationView x:Name="navigationPanel" PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed">
             <NavigationView.MenuItems>
                 <NavigationViewItem Icon="Play" Content="Paskolu klubas" Tag="SamplePage1" />
-                <NavigationViewItem Icon="Save" Content="Finbee" Tag="SamplePage2" />
+                <!--<NavigationViewItem Icon="Save" Content="Finbee" Tag="SamplePage2" />
                 <NavigationViewItem Icon="Refresh" Content="Savy" Tag="SamplePage3" />
-                <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />
+                <NavigationViewItem Icon="Download" Content="Menu Item4" Tag="SamplePage4" />-->
             </NavigationView.MenuItems>
         </NavigationView>
 

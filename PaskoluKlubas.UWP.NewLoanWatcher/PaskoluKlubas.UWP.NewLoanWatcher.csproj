@@ -17,7 +17,16 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x86|x64</AppxBundlePlatforms>
+    <AppInstallerUri>C://</AppInstallerUri>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <PackageCertificateThumbprint>C920D44C302C97045AF6EB475C89C69A4F5FC721</PackageCertificateThumbprint>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -123,9 +132,7 @@
     <Compile Include="Exceptions\LoginFailedException.cs" />
     <Compile Include="ToastMessage\Abstractions\IToastMessageRenderer.cs" />
     <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerClient.cs" />
-    <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerLoginCheck.cs" />
     <Compile Include="LoanIssuerClients\PaskoluKlubas\PaskoluKlubasLoanIssuerClient.cs" />
-    <Compile Include="LoanIssuerClients\PaskoluKlubas\PaskoluKlubasLoanIssuerClient.LoginCheck.cs" />
     <Compile Include="LoanIssuerClients\Finbee\FinbeeLoanIssuerClient.cs" />
     <Compile Include="Loan.cs" />
     <Compile Include="LoanListing.cs" />
@@ -185,6 +192,9 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PaskoluKlubas.UWP.NewLoanWatcher_TemporaryKey.pfx" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

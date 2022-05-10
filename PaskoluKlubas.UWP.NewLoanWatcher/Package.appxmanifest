@@ -9,7 +9,7 @@
   <Identity
     Name="711563ca-1795-4481-9d8e-b9557c6e4db6"
     Publisher="CN=dsavi"
-    Version="1.0.0.0" />
+    Version="1.0.2.0" />
 
   <mp:PhoneIdentity PhoneProductId="711563ca-1795-4481-9d8e-b9557c6e4db6" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

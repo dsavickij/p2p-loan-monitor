@@ -9,7 +9,7 @@ using PaskoluKlubas.UWP.NewLoanWatcher.Exceptions;
 
 namespace PaskoluKlubas.UWP.NewLoanWatcher.LoanIssuerClients.PaskoluKlubas
 {
-    public partial class PaskoluKlubasLoanIssuerClient : ILoanIssuerClient
+    public class PaskoluKlubasLoanIssuerClient : ILoanIssuerClient
     {
         private readonly string _login;
         private readonly string _password;
@@ -41,6 +41,9 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher.LoanIssuerClients.PaskoluKlubas
                 throw new LoginFailedException();
             }
         }
+
+        private bool IsLoginSuccessful(HtmlDocument postLoginDoc) =>
+            postLoginDoc.Text.Contains(@"https:\/\/www.paskoluklubas.lt\/user");
 
         private IEnumerable<Loan> ParseLoans(HtmlDocument loanDoc)
         {
