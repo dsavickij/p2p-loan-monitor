@@ -16,7 +16,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
             _loanIssuerClient = loanIssuer;
         }
 
-        public async Task<LoanListing> GetNewLoanListingAsync()
+        public async Task<LoanListing> GetNewListedLoansAsync()
         {
             var newloanListing = new LoanListing { Issuer = _loanIssuerClient.Issuer, Loans = Enumerable.Empty<Loan>() };
 

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Documents;
 
 namespace PaskoluKlubas.UWP.NewLoanWatcher
 {
@@ -31,7 +28,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
 
             while (_keepChecking)
             {
-                var listing = await _monitor.GetNewLoanListingAsync();
+                var listing = await _monitor.GetNewListedLoansAsync();
 
                 if (listing.Loans.Any())
                 {
