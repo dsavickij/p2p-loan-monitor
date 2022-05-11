@@ -128,25 +128,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Enums\LoanIssuer.cs" />
-    <Compile Include="Exceptions\LoginFailedException.cs" />
-    <Compile Include="PeriodicLoanCheckerBuilder.cs" />
-    <Compile Include="ToastMessage\Abstractions\IToastMessageRenderer.cs" />
-    <Compile Include="LoanIssuerClients\Abstractions\ILoanIssuerClient.cs" />
-    <Compile Include="LoanIssuerClients\PaskoluKlubas\PaskoluKlubasLoanIssuerClient.cs" />
-    <Compile Include="LoanIssuerClients\Finbee\FinbeeLoanIssuerClient.cs" />
-    <Compile Include="Loan.cs" />
-    <Compile Include="LoanListing.cs" />
-    <Compile Include="LoanListMonitor.cs" />
-    <Compile Include="LoanIssuerClientConfiguration.cs" />
-    <Compile Include="LoanListMonitorFactory.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PeriodicLoanChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToastMessage\Renderers\PaskoluKlubasToastMessageRenderer.cs" />
-    <Compile Include="ToastMessage\Abstractions\ToastMessageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -198,9 +183,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack">
-      <Version>1.11.42</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>
