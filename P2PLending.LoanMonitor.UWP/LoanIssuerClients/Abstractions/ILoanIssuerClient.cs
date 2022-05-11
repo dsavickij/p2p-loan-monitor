@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using PaskoluKlubas.UWP.NewLoanWatcher;
+﻿//using System.Collections.Generic;
+//using System.Threading.Tasks;
+//using PaskoluKlubas.UWP.NewLoanWatcher;
 
-public interface ILoanIssuerClient
-{
-    LoanIssuer Issuer { get; }
+//public interface ILoanIssuerClient
+//{
+//    LoanIssuer Issuer { get; }
 
-    Task<IEnumerable<Loan>> GetLoanListingAsync();
-}
+//    Task<IEnumerable<Loan>> GetLoanListingAsync();
+//}

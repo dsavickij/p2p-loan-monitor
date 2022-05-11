@@ -1,7 +1,11 @@
 ﻿using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using PaskoluKlubas.UWP.NewLoanWatcher.Exceptions;
+using P2PLending.LoanMonitor.Core;
+using P2PLending.LoanMonitor.Core.ToastMessage.Renderers;
+using P2PLending.LoanMonitor.Core.Models;
+using P2PLending.LoanMonitor.Core.Enums;
+using P2PLending.LoanMonitor.Core.Exceptions;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -40,7 +44,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
 
             var toastMessenger = new PaskoluKlubasToastMessageRenderer();
 
-            var issuerCfg = new LoanIssuerClientConfiguration
+            var cfg = new LoanIssuerClientConfiguration
             {
                 LoanIssuer = LoanIssuer.PaskoluKlubas,
                 Login = LoginBox.Text,
@@ -48,7 +52,7 @@ namespace PaskoluKlubas.UWP.NewLoanWatcher
             };
 
             _loanChecker = PeriodicLoanCheckerBuilder
-                .SetLoanIssuer(issuerCfg)
+                .SetLoanIssuer(cfg)
                 .CheckEvery(TimeSpan.FromMinutes(5))
                 .CallOnNewLoans(toastMessenger.ShowToastMessage)
                 .Build();
